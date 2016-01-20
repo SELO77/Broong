@@ -1,0 +1,610 @@
+-- 고객
+CREATE TABLE `customer` (
+	`customerNo`          VARCHAR(30)  NOT NULL COMMENT '고객번호', -- 고객번호
+	`customerPhone`       VARCHAR(30)  NULL     COMMENT '고객전화번호', -- 고객전화번호
+	`customerName`        VARCHAR(50)  NULL     COMMENT '고객이름', -- 고객이름
+	`customerNick`        VARCHAR(50)  NULL     COMMENT '고객별칭', -- 고객별칭
+	`customerMemo`        VARCHAR(255) NULL     COMMENT '고객메모', -- 고객메모
+	`customerLevel`       VARCHAR(30)  NULL     COMMENT '고객등급', -- 고객등급
+	`customerCount`       INTEGER      NULL     COMMENT '예약횟수', -- 예약횟수
+	`reserveLastDate`     DATE         NULL     COMMENT '마지막예약일', -- 마지막예약일
+	`customerNoShowLevel` INTEGER      NULL     COMMENT 'NoShowLevel', -- NoShowLevel
+	`mallNo`              VARCHAR(30)  NULL     COMMENT '몰번호' -- 몰번호
+)
+COMMENT '고객';
+
+-- 고객
+ALTER TABLE `customer`
+	ADD CONSTRAINT `PK_customer` -- 고객 기본키
+		PRIMARY KEY (
+			`customerNo` -- 고객번호
+		);
+
+-- 예약
+CREATE TABLE `reserve` (
+	`reserveNo`      VARCHAR(30)  NOT NULL COMMENT '예약번호', -- 예약번호
+	`reserveDate`    DATE         NULL     COMMENT '예약일시', -- 예약일시
+	`reserveCount`   INTEGER      NULL     COMMENT '예약인원', -- 예약인원
+	`reserveName`    VARCHAR(50)  NULL     COMMENT '예약명', -- 예약명
+	`reserveDemand`  VARCHAR(255) NULL     COMMENT '요청사항', -- 요청사항
+	`reserveCode`    INTEGER      NULL     COMMENT '진행상황코드', -- 진행상황코드
+	`reserveRegdate` DATE         NULL     COMMENT '접수시간', -- 접수시간
+	`mallNo`         VARCHAR(30)  NULL     COMMENT '몰번호', -- 몰번호
+	`customerNo`     VARCHAR(30)  NULL     COMMENT '고객번호' -- 고객번호
+)
+COMMENT '예약';
+
+-- 예약
+ALTER TABLE `reserve`
+	ADD CONSTRAINT `PK_reserve` -- 예약 기본키
+		PRIMARY KEY (
+			`reserveNo` -- 예약번호
+		);
+
+-- 메뉴
+CREATE TABLE `menu` (
+	`menuNo`          VARCHAR(30)  NOT NULL COMMENT '메뉴번호', -- 메뉴번호
+	`menuName`        VARCHAR(50)  NOT NULL COMMENT '메뉴이름', -- 메뉴이름
+	`menuPrice`       INTEGER      NULL     COMMENT '가격', -- 가격
+	`menuDescription` VARCHAR(255) NULL     COMMENT '설명', -- 설명
+	`menuCheck`       INTEGER      NULL     COMMENT '활성화여부', -- 활성화여부
+	`mallNo`          VARCHAR(30)  NULL     COMMENT '몰번호', -- 몰번호
+	`mcNo`            VARCHAR(30)  NULL     COMMENT '메뉴카테고리번호' -- 메뉴카테고리번호
+)
+COMMENT '메뉴';
+
+-- 메뉴
+ALTER TABLE `menu`
+	ADD CONSTRAINT `PK_menu` -- 메뉴 기본키
+		PRIMARY KEY (
+			`menuNo` -- 메뉴번호
+		);
+
+-- 메뉴카테고리
+CREATE TABLE `mc` (
+	`mcNo`   VARCHAR(30) NOT NULL COMMENT '메뉴카테고리번호', -- 메뉴카테고리번호
+	`mcName` VARCHAR(50) NOT NULL COMMENT '메뉴카테고리이름', -- 메뉴카테고리이름
+	`mallNo` VARCHAR(30) NULL     COMMENT '몰번호' -- 몰번호
+)
+COMMENT '메뉴카테고리';
+
+-- 메뉴카테고리
+ALTER TABLE `mc`
+	ADD CONSTRAINT `PK_mc` -- 메뉴카테고리 기본키
+		PRIMARY KEY (
+			`mcNo` -- 메뉴카테고리번호
+		);
+
+-- 쿠폰
+CREATE TABLE `coupon` (
+	`couponNo`            VARCHAR(30) NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
+	`couponName`          VARCHAR(50) NULL     COMMENT '쿠폰이름', -- 쿠폰이름
+	`couponAvailableTerm` DATE        NULL     COMMENT '사용가능기간', -- 사용가능기간
+	`couponAvailableTime` VARCHAR(30) NULL     COMMENT '사용가능시간대', -- 사용가능시간대
+	`couponAvailable`     VARCHAR(30) NULL     COMMENT '사용가능요일', -- 사용가능요일
+	`mallNo`              VARCHAR(30) NULL     COMMENT '몰번호', -- 몰번호
+	`ccNo`                VARCHAR(30) NULL     COMMENT '쿠폰카테고리번호' -- 쿠폰카테고리번호
+)
+COMMENT '쿠폰';
+
+-- 쿠폰
+ALTER TABLE `coupon`
+	ADD CONSTRAINT `PK_coupon` -- 쿠폰 기본키
+		PRIMARY KEY (
+			`couponNo` -- 쿠폰번호
+		);
+
+-- 방
+CREATE TABLE `room` (
+	`roomNo`               VARCHAR(30) NOT NULL COMMENT '방번호', -- 방번호
+	`roomName`             VARCHAR(50) NULL     COMMENT '방이름', -- 방이름
+	`roomAvailablePeoples` INTEGER     NULL     COMMENT '수용가능인원', -- 수용가능인원
+	`mallNo`               VARCHAR(30) NULL     COMMENT '몰번호' -- 몰번호
+)
+COMMENT '방';
+
+-- 방
+ALTER TABLE `room`
+	ADD CONSTRAINT `PK_room` -- 방 기본키
+		PRIMARY KEY (
+			`roomNo` -- 방번호
+		);
+
+-- 새 테이블
+CREATE TABLE `TABLE7` (
+)
+COMMENT '새 테이블';
+
+-- 예약목록
+CREATE TABLE `TABLE8` (
+)
+COMMENT '예약목록';
+
+-- 예약횟수
+CREATE TABLE `TABLE9` (
+)
+COMMENT '예약횟수';
+
+-- 쿠폰카테고리
+CREATE TABLE `cc` (
+	`ccNo`   VARCHAR(30) NOT NULL COMMENT '쿠폰카테고리번호', -- 쿠폰카테고리번호
+	`ccName` VARCHAR(50) NOT NULL COMMENT '쿠폰카테고리명', -- 쿠폰카테고리명
+	`mallNo` VARCHAR(30) NULL     COMMENT '몰번호' -- 몰번호
+)
+COMMENT '쿠폰카테고리';
+
+-- 쿠폰카테고리
+ALTER TABLE `cc`
+	ADD CONSTRAINT `PK_cc` -- 쿠폰카테고리 기본키
+		PRIMARY KEY (
+			`ccNo` -- 쿠폰카테고리번호
+		);
+
+-- 시간대
+CREATE TABLE `TABLE11` (
+	`COL` <데이터 타입 없음> NOT NULL COMMENT '시간대' -- 시간대
+)
+COMMENT '시간대';
+
+-- 시간대
+ALTER TABLE `TABLE11`
+	ADD CONSTRAINT `PK_TABLE11` -- 시간대 기본키
+		PRIMARY KEY (
+			`COL` -- 시간대
+		);
+
+-- 새 테이블2
+CREATE TABLE `TABLE12` (
+)
+COMMENT '새 테이블2';
+
+-- 예약항목
+CREATE TABLE `TABLE13` (
+)
+COMMENT '예약항목';
+
+-- 예약상황
+CREATE TABLE `TABLE14` (
+	`COL`  <데이터 타입 없음> NULL COMMENT '예약상황번호', -- 예약상황번호
+	`COL2` <데이터 타입 없음> NULL COMMENT '예약상황명' -- 예약상황명
+)
+COMMENT '예약상황';
+
+-- 예약메뉴
+CREATE TABLE `reserveMenu` (
+	`reserveNo` VARCHAR(30) NULL COMMENT '예약번호', -- 예약번호
+	`menuNo`    VARCHAR(30) NULL COMMENT '메뉴번호', -- 메뉴번호
+	`menuCount` INTEGER     NULL COMMENT '메뉴수량', -- 메뉴수량
+	`mallNo`    VARCHAR(30) NULL COMMENT '몰번호' -- 몰번호
+)
+COMMENT '예약메뉴';
+
+-- 예약방
+CREATE TABLE `reserveRoom` (
+	`reserveNo` VARCHAR(30) NULL COMMENT '예약번호', -- 예약번호
+	`roomNo`    VARCHAR(30) NULL COMMENT '방번호', -- 방번호
+	`mallNo`    VARCHAR(30) NULL COMMENT '몰번호' -- 몰번호
+)
+COMMENT '예약방';
+
+-- 발행쿠폰리스트
+CREATE TABLE `couponCustomer` (
+	`couponNo`   VARCHAR(30) NULL COMMENT '쿠폰번호', -- 쿠폰번호
+	`customerNo` VARCHAR(30) NULL COMMENT '고객번호', -- 고객번호
+	`mallNo`     VARCHAR(30) NULL COMMENT '몰번호' -- 몰번호
+)
+COMMENT '발행쿠폰리스트';
+
+-- 미방문
+CREATE TABLE `TABLE18` (
+)
+COMMENT '미방문';
+
+-- 예약추가정보
+CREATE TABLE `TABLE19` (
+	`COL`  <데이터 타입 없음> NULL COMMENT '종류', -- 종류
+	`COL3` <데이터 타입 없음> NULL COMMENT '떡주문수령방법', -- 떡주문수령방법
+	`COL4` <데이터 타입 없음> NULL COMMENT '떡주문결제방법', -- 떡주문결제방법
+	`COL5` <데이터 타입 없음> NULL COMMENT '예약담당자', -- 예약담당자
+	`COL6` <데이터 타입 없음> NULL COMMENT '예약금수금' -- 예약금수금
+)
+COMMENT '예약추가정보';
+
+-- 문자
+CREATE TABLE `sm` (
+	`smNo`       VARCHAR(30)  NOT NULL COMMENT '문자번호', -- 문자번호
+	`smCode`     VARCHAR(30)  NULL     COMMENT '문자종류', -- 문자종류
+	`smContent`  VARCHAR(255) NULL     COMMENT '문자내용', -- 문자내용
+	`smSendTime` DATE         NULL     COMMENT '문자시간', -- 문자시간
+	`mallNo`     VARCHAR(30)  NULL     COMMENT '몰번호', -- 몰번호
+	`customerNo` VARCHAR(30)  NULL     COMMENT '고객번호', -- 고객번호
+	`reserveNo`  VARCHAR(30)  NULL     COMMENT '예약번호' -- 예약번호
+)
+COMMENT '문자';
+
+-- 문자
+ALTER TABLE `sm`
+	ADD CONSTRAINT `PK_sm` -- 문자 기본키
+		PRIMARY KEY (
+			`smNo` -- 문자번호
+		);
+
+-- 새 테이블3
+CREATE TABLE `TABLE21` (
+)
+COMMENT '새 테이블3';
+
+-- 몰
+CREATE TABLE `mall` (
+	`mallNo`      VARCHAR(30) NOT NULL COMMENT '몰번호', -- 몰번호
+	`mallName`    VARCHAR(50) NULL     COMMENT '몰이름', -- 몰이름
+	`mallPhone`   VARCHAR(30) NULL     COMMENT '몰전화번호', -- 몰전화번호
+	`mallChief`   VARCHAR(50) NULL     COMMENT '몰대표이사', -- 몰대표이사
+	`mallRegdate` DATE        NULL     COMMENT '등록일' -- 등록일
+)
+COMMENT '몰';
+
+-- 몰
+ALTER TABLE `mall`
+	ADD CONSTRAINT `PK_mall` -- 몰 기본키
+		PRIMARY KEY (
+			`mallNo` -- 몰번호
+		);
+
+-- 통화
+CREATE TABLE `call` (
+	`callNo`     VARCHAR(30) NOT NULL COMMENT '통화번호', -- 통화번호
+	`callTime`   DATE        NULL     COMMENT '통화시간', -- 통화시간
+	`mallNo`     VARCHAR(30) NULL     COMMENT '몰번호', -- 몰번호
+	`customerNo` VARCHAR(30) NULL     COMMENT '고객번호', -- 고객번호
+	`reserveNo`  VARCHAR(30) NULL     COMMENT '예약번호' -- 예약번호
+)
+COMMENT '통화';
+
+-- 통화
+ALTER TABLE `call`
+	ADD CONSTRAINT `PK_call` -- 통화 기본키
+		PRIMARY KEY (
+			`callNo` -- 통화번호
+		);
+
+-- 포인트
+CREATE TABLE `mallPoint` (
+	`pointDate` DATE        NOT NULL COMMENT '날짜', -- 날짜
+	`point`     INTEGER     NULL     COMMENT '포인트', -- 포인트
+	`mallNo`    VARCHAR(30) NULL     COMMENT '몰번호' -- 몰번호
+)
+COMMENT '포인트';
+
+-- 포인트
+ALTER TABLE `mallPoint`
+	ADD CONSTRAINT `PK_mallPoint` -- 포인트 기본키
+		PRIMARY KEY (
+			`pointDate` -- 날짜
+		);
+
+-- 추가정보
+CREATE TABLE `TABLE25` (
+	`id`        <데이터 타입 없음> NOT NULL COMMENT '추가정보번호', -- 추가정보번호
+	`COL`       <데이터 타입 없음> NULL     COMMENT '추가정보종류', -- 추가정보종류
+	`COL2`      <데이터 타입 없음> NULL     COMMENT '예약금', -- 예약금
+	`COL3`      <데이터 타입 없음> NULL     COMMENT '예약담당자', -- 예약담당자
+	`COL4`      <데이터 타입 없음> NULL     COMMENT '예약금수금여부', -- 예약금수금여부
+	`reserveNo` VARCHAR(30)        NULL     COMMENT '예약번호' -- 예약번호
+)
+COMMENT '추가정보';
+
+-- 추가정보
+ALTER TABLE `TABLE25`
+	ADD CONSTRAINT `PK_TABLE25` -- 추가정보 기본키
+		PRIMARY KEY (
+			`id` -- 추가정보번호
+		);
+
+-- 추가정보
+CREATE TABLE `TABLE26` (
+	`COL3` <데이터 타입 없음> NOT NULL COMMENT '추가정보번호', -- 추가정보번호
+	`COL2` <데이터 타입 없음> NULL     COMMENT '추가정보종류' -- 추가정보종류
+)
+COMMENT '추가정보';
+
+-- 추가정보
+ALTER TABLE `TABLE26`
+	ADD CONSTRAINT `PK_TABLE26` -- 추가정보 기본키
+		PRIMARY KEY (
+			`COL3` -- 추가정보번호
+		);
+
+-- 새 테이블4
+CREATE TABLE `TABLE27` (
+)
+COMMENT '새 테이블4';
+
+-- 추가정보내용
+CREATE TABLE `TABLE28` (
+	`COL` <데이터 타입 없음> NULL COMMENT '추가정보내용' -- 추가정보내용
+)
+COMMENT '추가정보내용';
+
+-- 예약목록
+CREATE TABLE `TABLE29` (
+)
+COMMENT '예약목록';
+
+-- 추가정보
+CREATE TABLE `meta` (
+	`metaNo`      VARCHAR(30)  NOT NULL COMMENT '추가정보번호', -- 추가정보번호
+	`metaContent` VARCHAR(255) NULL     COMMENT '추가정보내용', -- 추가정보내용
+	`metaCheck`   INTEGER      NULL     COMMENT '활성화여부', -- 활성화여부
+	`mallNo`      VARCHAR(30)  NULL     COMMENT '몰번호' -- 몰번호
+)
+COMMENT '추가정보';
+
+-- 추가정보
+ALTER TABLE `meta`
+	ADD CONSTRAINT `PK_meta` -- 추가정보 기본키
+		PRIMARY KEY (
+			`metaNo` -- 추가정보번호
+		);
+
+-- 추가정보목록
+CREATE TABLE `reserveMeta` (
+	`metaNo`    VARCHAR(30) NULL COMMENT '추가정보번호', -- 추가정보번호
+	`reserveNo` VARCHAR(30) NULL COMMENT '예약번호', -- 예약번호
+	`mallNo`    VARCHAR(30) NULL COMMENT '몰번호' -- 몰번호
+)
+COMMENT '추가정보목록';
+
+-- 방옵션
+CREATE TABLE `roomOption` (
+	`roomNo`      VARCHAR(30)        NOT NULL COMMENT '방번호', -- 방번호
+	`roomOptions` <데이터 타입 없음> NULL     COMMENT '방옵션내용' -- 방옵션내용
+)
+COMMENT '방옵션';
+
+-- 방옵션
+ALTER TABLE `roomOption`
+	ADD CONSTRAINT `PK_roomOption` -- 방옵션 기본키
+		PRIMARY KEY (
+			`roomNo` -- 방번호
+		);
+
+-- 할인
+CREATE TABLE `discount` (
+	`discountNo`      VARCHAR(30)  NOT NULL COMMENT '할인번호', -- 할인번호
+	`discountContent` VARCHAR(255) NULL     COMMENT '할인내용', -- 할인내용
+	`discountPrice`   INTEGER      NULL     COMMENT '할인가격', -- 할인가격
+	`mallNo`          VARCHAR(30)  NULL     COMMENT '몰번호', -- 몰번호
+	`menuNo`          VARCHAR(30)  NULL     COMMENT '메뉴번호' -- 메뉴번호
+)
+COMMENT '할인';
+
+-- 할인
+ALTER TABLE `discount`
+	ADD CONSTRAINT `PK_discount` -- 할인 기본키
+		PRIMARY KEY (
+			`discountNo` -- 할인번호
+		);
+
+-- 전화받을시 View 
+CREATE TABLE `TABLE34` (
+	`COL8`  <데이터 타입 없음> NULL COMMENT '고객등급', -- 고객등급
+	`COL9`  <데이터 타입 없음> NULL COMMENT '예약횟수', -- 예약횟수
+	`COL10` <데이터 타입 없음> NULL COMMENT '마지막예약일' -- 마지막예약일
+)
+COMMENT '전화받을시 View ';
+
+-- 알림여부
+CREATE TABLE `alarm` (
+	`reserveNo`    VARCHAR(30)  NOT NULL COMMENT '예약번호', -- 예약번호
+	`alarmContent` VARCHAR(255) NULL     COMMENT '알림내용', -- 알림내용
+	`alarmCheck`   INTEGER      NULL     COMMENT '알림여부' -- 알림여부
+)
+COMMENT '알림여부';
+
+-- 알림여부
+ALTER TABLE `alarm`
+	ADD CONSTRAINT `PK_alarm` -- 알림여부 기본키
+		PRIMARY KEY (
+			`reserveNo` -- 예약번호
+		);
+
+-- 예약
+ALTER TABLE `reserve`
+	ADD CONSTRAINT `FK_customer_TO_reserve` -- 고객 -> 예약
+		FOREIGN KEY (
+			`customerNo` -- 고객번호
+		)
+		REFERENCES `customer` ( -- 고객
+			`customerNo` -- 고객번호
+		);
+
+-- 메뉴
+ALTER TABLE `menu`
+	ADD CONSTRAINT `FK_mc_TO_menu` -- 메뉴카테고리 -> 메뉴
+		FOREIGN KEY (
+			`mcNo` -- 메뉴카테고리번호
+		)
+		REFERENCES `mc` ( -- 메뉴카테고리
+			`mcNo` -- 메뉴카테고리번호
+		);
+
+-- 쿠폰
+ALTER TABLE `coupon`
+	ADD CONSTRAINT `FK_cc_TO_coupon` -- 쿠폰카테고리 -> 쿠폰
+		FOREIGN KEY (
+			`ccNo` -- 쿠폰카테고리번호
+		)
+		REFERENCES `cc` ( -- 쿠폰카테고리
+			`ccNo` -- 쿠폰카테고리번호
+		);
+
+-- 예약메뉴
+ALTER TABLE `reserveMenu`
+	ADD CONSTRAINT `FK_menu_TO_reserveMenu` -- 메뉴 -> 예약메뉴
+		FOREIGN KEY (
+			`menuNo` -- 메뉴번호
+		)
+		REFERENCES `menu` ( -- 메뉴
+			`menuNo` -- 메뉴번호
+		);
+
+-- 예약메뉴
+ALTER TABLE `reserveMenu`
+	ADD CONSTRAINT `FK_reserve_TO_reserveMenu` -- 예약 -> 예약메뉴
+		FOREIGN KEY (
+			`reserveNo` -- 예약번호
+		)
+		REFERENCES `reserve` ( -- 예약
+			`reserveNo` -- 예약번호
+		);
+
+-- 예약방
+ALTER TABLE `reserveRoom`
+	ADD CONSTRAINT `FK_reserve_TO_reserveRoom` -- 예약 -> 예약방
+		FOREIGN KEY (
+			`reserveNo` -- 예약번호
+		)
+		REFERENCES `reserve` ( -- 예약
+			`reserveNo` -- 예약번호
+		);
+
+-- 예약방
+ALTER TABLE `reserveRoom`
+	ADD CONSTRAINT `FK_room_TO_reserveRoom` -- 방 -> 예약방
+		FOREIGN KEY (
+			`roomNo` -- 방번호
+		)
+		REFERENCES `room` ( -- 방
+			`roomNo` -- 방번호
+		);
+
+-- 발행쿠폰리스트
+ALTER TABLE `couponCustomer`
+	ADD CONSTRAINT `FK_customer_TO_couponCustomer` -- 고객 -> 발행쿠폰리스트
+		FOREIGN KEY (
+			`customerNo` -- 고객번호
+		)
+		REFERENCES `customer` ( -- 고객
+			`customerNo` -- 고객번호
+		);
+
+-- 발행쿠폰리스트
+ALTER TABLE `couponCustomer`
+	ADD CONSTRAINT `FK_coupon_TO_couponCustomer` -- 쿠폰 -> 발행쿠폰리스트
+		FOREIGN KEY (
+			`couponNo` -- 쿠폰번호
+		)
+		REFERENCES `coupon` ( -- 쿠폰
+			`couponNo` -- 쿠폰번호
+		);
+
+-- 문자
+ALTER TABLE `sm`
+	ADD CONSTRAINT `FK_customer_TO_sm` -- 고객 -> 문자
+		FOREIGN KEY (
+			`customerNo` -- 고객번호
+		)
+		REFERENCES `customer` ( -- 고객
+			`customerNo` -- 고객번호
+		);
+
+-- 문자
+ALTER TABLE `sm`
+	ADD CONSTRAINT `FK_reserve_TO_sm` -- 예약 -> 문자
+		FOREIGN KEY (
+			`reserveNo` -- 예약번호
+		)
+		REFERENCES `reserve` ( -- 예약
+			`reserveNo` -- 예약번호
+		);
+
+-- 통화
+ALTER TABLE `call`
+	ADD CONSTRAINT `FK_customer_TO_call` -- 고객 -> 통화
+		FOREIGN KEY (
+			`customerNo` -- 고객번호
+		)
+		REFERENCES `customer` ( -- 고객
+			`customerNo` -- 고객번호
+		);
+
+-- 통화
+ALTER TABLE `call`
+	ADD CONSTRAINT `FK_reserve_TO_call` -- 예약 -> 통화
+		FOREIGN KEY (
+			`reserveNo` -- 예약번호
+		)
+		REFERENCES `reserve` ( -- 예약
+			`reserveNo` -- 예약번호
+		);
+
+-- 포인트
+ALTER TABLE `mallPoint`
+	ADD CONSTRAINT `FK_mall_TO_mallPoint` -- 몰 -> 포인트
+		FOREIGN KEY (
+			`mallNo` -- 몰번호
+		)
+		REFERENCES `mall` ( -- 몰
+			`mallNo` -- 몰번호
+		);
+
+-- 추가정보
+ALTER TABLE `TABLE25`
+	ADD CONSTRAINT `FK_reserve_TO_TABLE25` -- 예약 -> 추가정보
+		FOREIGN KEY (
+			`reserveNo` -- 예약번호
+		)
+		REFERENCES `reserve` ( -- 예약
+			`reserveNo` -- 예약번호
+		);
+
+-- 추가정보목록
+ALTER TABLE `reserveMeta`
+	ADD CONSTRAINT `FK_meta_TO_reserveMeta` -- 추가정보 -> 추가정보목록
+		FOREIGN KEY (
+			`metaNo` -- 추가정보번호
+		)
+		REFERENCES `meta` ( -- 추가정보
+			`metaNo` -- 추가정보번호
+		);
+
+-- 추가정보목록
+ALTER TABLE `reserveMeta`
+	ADD CONSTRAINT `FK_reserve_TO_reserveMeta` -- 예약 -> 추가정보목록
+		FOREIGN KEY (
+			`reserveNo` -- 예약번호
+		)
+		REFERENCES `reserve` ( -- 예약
+			`reserveNo` -- 예약번호
+		);
+
+-- 방옵션
+ALTER TABLE `roomOption`
+	ADD CONSTRAINT `FK_room_TO_roomOption` -- 방 -> 방옵션
+		FOREIGN KEY (
+			`roomNo` -- 방번호
+		)
+		REFERENCES `room` ( -- 방
+			`roomNo` -- 방번호
+		);
+
+-- 할인
+ALTER TABLE `discount`
+	ADD CONSTRAINT `FK_menu_TO_discount` -- 메뉴 -> 할인
+		FOREIGN KEY (
+			`menuNo` -- 메뉴번호
+		)
+		REFERENCES `menu` ( -- 메뉴
+			`menuNo` -- 메뉴번호
+		);
+
+-- 알림여부
+ALTER TABLE `alarm`
+	ADD CONSTRAINT `FK_reserve_TO_alarm` -- 예약 -> 알림여부
+		FOREIGN KEY (
+			`reserveNo` -- 예약번호
+		)
+		REFERENCES `reserve` ( -- 예약
+			`reserveNo` -- 예약번호
+		);
